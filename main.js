@@ -27,15 +27,9 @@ function searchTable() {
 }
 
 const editModal = document.querySelector("#EditModal");
-const openEditModal = document.getElementById("openEdit");
-const closeEditModal = document.getElementById("closeEdit");
 
-openEditModal.addEventListener("click", () => {
-    editModal.showModal();
-});
+function someFunc() {
+    editModal.showModal()
+}
 
-closeEditModal.addEventListener("click", () => {
-    editModal.close();
-});
-
-
+  

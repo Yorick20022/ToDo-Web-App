@@ -19,7 +19,6 @@ $result = $stmt->fetchAll();
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
     <title>ToDo</title>
 </head>
@@ -41,21 +40,25 @@ $result = $stmt->fetchAll();
             <?php
             if (count($result) > 0) {
                 foreach ($result as $row) {
-                    echo "<div class='tasks searchable-task'>";
+                    echo "<div class='tasks searchable-task' id='" . $row["TaakID"] . "'>";
                     echo "<p3 class='deadlinePos'>" . $row["Deadline"] . "</p3>";
                     echo "<p1 class='taakPos'>" . $row["TaakNaam"] . "</p1>";
                     echo "<p1 class='omschrijvingPos'>" . $row["Omschrijving"] . "</p1>";
                     echo "<div class='divid'>";
-                    // echo "<p3>" . $row["TaakID"] . "</p3>";
+                    echo "<form action = 'update-process.php' method='get'>";
+                    echo "<input type='hidden' name='TaakID' value='" . $row["TaakID"] . "'>";
+                    echo "</form>";
                     // echo "<p3 style='color: ##A58922;'>" . $row["Prioriteit"] . "</p3>";
                     echo "<a href='delete-process.php?TaakID=" . $row["TaakID"] . "' class='delete-icon' title='Done'>";
                     echo "<i class='fa-solid fa-circle-check'></i>";
                     echo "</a>";
-                    echo "<i class='fa-solid fa-pen-to-square' data-target=\"#EditModal{$row["TaakID"]}\"></i>";
+                    echo "<i class='fa-solid fa-pen-to-square' onclick='someFunc({$row["TaakID"]})'></i>";
                     echo "</div>";
                     echo "</div>";
                     echo "<br>";
                 }
+
+
             } else {
                 echo "Geen resterende taken";
             }
@@ -83,32 +86,30 @@ $result = $stmt->fetchAll();
             </div>
         </dialog>
 
-        <div id="parent">
-            <dialog class="TodoModal" id="EditModal-<?= $row["TaakID"] ?>">
-                <i id="closeEdit" class="fa-solid fa-xmark"></i>
-                <h1 class="newNote">Bewerk taak</h1>
-                <div class="boxes">
-                    <form method="post" action="app.php">
-                        <input type="text" name="taak" maxlength="10" class="title" placeholder="Taak" required>
-                        <br>
-                        <select name="prio" id="prio" class="prioriteit" required>
-                            <option value="" disabled selected>Prioriteit</option>
-                            <option value="laag">Laag</option>
-                            <option value="normaal">Normaal</option>
-                            <option value="hoog">Hoog</option>
-                        </select>
-                        <input type="date" name="deadline" class="due" placeholder="Due date" required>
-                        <textarea name="omschrijving" maxlength="90" cols="30" placeholder="Omschrijving" rows="5"
-                            class="textarea" style="resize: none;" required></textarea>
-                        <input type="submit" class="button" value="Save">
-                    </form>
-                </div>
-            </dialog>
-        </div>
+        <dialog class="TodoModal" id="EditModal">
+            <i id="closeEdit" class="fa-solid fa-xmark"></i>
+            <h1 class="newNote">Bewerk taak</h1>
+            </h1>
+            <div class="boxes">
+                <form method="post" action="update-process.php">
+                    <input type="text" name="taak" maxlength="10" class="title" placeholder="Taak">
+                    <br>
+                    <select name="prio" id="prio" class="prioriteit">
+                        <option value="" disabled selected>Prioriteit</option>
+                        <option value="laag">Laag</option>
+                        <option value="normaal">Normaal</option>
+                        <option value="hoog">Hoog</option>
+                    </select>
+                    <input type="date" name="deadline" class="due" placeholder="Due date">
+                    <textarea name="omschrijving" maxlength="90" cols="30" placeholder="Omschrijving" rows="5"
+                        class="textarea" style="resize: none;"></textarea>
+                    <input type="submit" class="button" value="Save">
+                </form>
+            </div>
+        </dialog>
 </body>
 
 
-<script src="main.js"></script>
-
+<script src=" main.js"></script>
 
 </html>
