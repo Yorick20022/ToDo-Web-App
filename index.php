@@ -37,32 +37,54 @@ $result = $stmt->fetchAll();
         <input type="text" id="search" onkeyup="searchTable()" name="taak" class="search" placeholder="Zoeken">
         <br><br>
         <div class='tasksMain'>
-            <?php
-            if (count($result) > 0) {
-                foreach ($result as $row) {
-                    echo "<div class='tasks searchable-task' id='" . $row["TaakID"] . "'>";
-                    echo "<p3 class='deadlinePos'>" . $row["Deadline"] . "</p3>";
-                    echo "<p1 class='taakPos'>" . $row["TaakNaam"] . "</p1>";
-                    echo "<p1 class='omschrijvingPos'>" . $row["Omschrijving"] . "</p1>";
-                    echo "<div class='divid'>";
-                    echo "<input type='hidden' name='TaakID' value='" . $row["TaakID"] . "'>";
-                    echo "</form>";
-                    // echo "<p3 style='color: ##A58922;'>" . $row["Prioriteit"] . "</p3>";
-                    echo "<a href='delete-process.php?TaakID=" . $row["TaakID"] . "' class='delete-icon' title='Done'>";
-                    echo "<i class='fa-solid fa-circle-check'></i>";
-                    echo "</a>";
-                    echo "<i class='fa-solid fa-pen-to-square' onclick='someFunc({$row["TaakID"]})'></i>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<br>";
+            <?php if (count($result) > 0): ?>
+                <?php foreach ($result as $row): ?>
+                    <div class="tasks searchable-task" id="<?= $row['TaakID'] ?>">
+                        <p3 class="deadlinePos">
+                            <?= $row['Deadline'] ?>
+                        </p3>
+                        <p1 class="taakPos">
+                            <?= $row['TaakNaam'] ?>
+                        </p1>
+                        <p1 class="omschrijvingPos">
+                            <?= $row['Omschrijving'] ?>
+                        </p1>
+                        <div class="divid">
+                            <input type="hidden" name="TaakID" value="<?= $row['TaakID'] ?>">
+                            </form>
+                            <a href="delete-process.php?TaakID=<?= $row['TaakID'] ?>" class="delete-icon" title="Done">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </a>
+                            <i class="fa-solid fa-pen-to-square" onclick="someFunc()"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <dialog class="TodoModal" id="EditModal">
+                        <i id="closeEdit" class="fa-solid fa-xmark" onclick="someFunc2()"></i>
+                        <h1 class="newNote">Bewerk taak</h1>
+                        <div class="boxes">
+                            <form method="post" action="update-process.php?TaakID=<?= $row['TaakID'] ?>">
+                                <input type="text" name="taak" maxlength="15" class="title" placeholder="Taak">
+                                <br>
+                                <select name="prio" id="prio" class="prioriteit">
+                                    <option value="" disabled selected>Prioriteit</option>
+                                    <option value="laag">Laag</option>
+                                    <option value="normaal">Normaal</option>
+                                    <option value="hoog">Hoog</option>
+                                </select>
+                                <input type="date" name="deadline" class="due" placeholder="Due date">
+                                <textarea name="omschrijving" maxlength="90" cols="30" placeholder="Omschrijving" rows="5"
+                                    class="textarea" value="test" style="resize: none;"></textarea>
+                                <input type="submit" class="button" value="Save">
+                            </form>
+                        </div>
+                    </dialog>
 
-                }
+                <?php endforeach; ?>
+            <?php endif; ?>
 
 
-            } else {
-                echo "Geen resterende taken";
-            }
-            ?>
+
         </div>
 
         <dialog class="TodoModal" id="TodoModal">
@@ -70,7 +92,7 @@ $result = $stmt->fetchAll();
             <h1 class="newNote">Nieuwe taak</h1>
             <div class="boxes">
                 <form method="post" action="app.php">
-                    <input type="text" name="taak" maxlength="10" class="title" placeholder="Taak" required>
+                    <input type="text" name="taak" maxlength="15" class="title" placeholder="Taak" required>
                     <br>
                     <select name="prio" id="prio" class="prioriteit" required>
                         <option value="" disabled selected>Prioriteit</option>
@@ -82,30 +104,6 @@ $result = $stmt->fetchAll();
                     <textarea name="omschrijving" maxlength="90" cols="30" placeholder="Omschrijving" rows="5"
                         class="textarea" style="resize: none;" required></textarea>
                     <input type="submit" class="button" value="Save">
-                </form>
-            </div>
-        </dialog>
-
-        <dialog class="TodoModal" id="EditModal">
-            <i id="closeEdit" class="fa-solid fa-xmark"></i>
-            <h1 class="newNote">Bewerk taak</h1>
-            </h1>
-            <div class="boxes">
-                <form method="post" action="update-process.php">
-                    <input type="text" name="taak" maxlength="15" class="title" placeholder="Taak">
-                    <br>
-                    <select name="prio" id="prio" class="prioriteit">
-                        <option value="" disabled selected>Prioriteit</option>
-                        <option value="laag">Laag</option>
-                        <option value="normaal">Normaal</option>
-                        <option value="hoog">Hoog</option>
-                    </select>
-                    <input type="date" name="deadline" class="due" placeholder="Due date">
-                    <textarea name="omschrijving" maxlength="90" cols="30" placeholder="Omschrijving" rows="5"
-                        class="textarea" value="test" style="resize: none;"></textarea>
-                    <input type="hidden" name="TaakID" value="<?php echo $row["TaakID"]; ?>">
-                    <input type="submit" class="button" value="Save">
-                    </a>
                 </form>
             </div>
         </dialog>

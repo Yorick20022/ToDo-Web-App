@@ -3,28 +3,40 @@
 // Establish a connection to the database
 include_once("database.php");
 
+$EditID = $_GET["TaakID"];
+echo "Edit ID: $EditID";
 $taak = $_POST["taak"];
-$deadline = $_POST["deadline"];
 $prioriteit = $_POST["prio"];
+$deadline = $_POST["deadline"];
 $omschrijving = $_POST["omschrijving"];
-$id = $_POST["TaakID"];
 
 if (!empty($taak)) {
-    $stmt = $conn->prepare("UPDATE taken SET TaakNaam=?, Deadline=?, Prioriteit=?, Omschrijving=? WHERE TaakID=?");
+    $stmt = $conn->prepare("UPDATE taken SET TaakNaam=?, Prioriteit=?, Deadline=?, Omschrijving=? WHERE TaakID=?");
 
     if (!$stmt) {
         echo "Error" . $conn->errorInfo();
     }
 
     $stmt->bindParam(1, $taak);
-    $stmt->bindParam(2, $deadline);
-    $stmt->bindParam(3, $prioriteit);
+    $stmt->bindParam(2, $prioriteit);
+    $stmt->bindParam(3, $deadline);
     $stmt->bindParam(4, $omschrijving);
-    $stmt->bindParam(5, $id);
+    $stmt->bindParam(5, $EditID);
     $stmt->execute();
-
+    
     if ($stmt->rowCount() > 0) {
         echo "Record succesvol bijgewerkt";
+        echo "<br>";
+        echo $taak;
+        echo "<br>";
+        echo $prioriteit;
+        echo "<br>";
+        echo $deadline;
+        echo "<br>";
+        echo $omschrijving;
+        echo "<br>";
+        echo "id: $EditID";
+
     } else {
         echo "Error" . $stmt->errorInfo();
     }
@@ -35,7 +47,7 @@ if (!empty($taak)) {
     echo "Error";
 }
 
-header("Location: index.php");
-exit;
+// header("Location: index.php");
+// exit;
 
 ?>

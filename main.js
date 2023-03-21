@@ -27,9 +27,20 @@ function searchTable() {
 }
 
 const editModal = document.querySelector("#EditModal");
+const closeEditModal = document.querySelector(".fa-solid fa-xmark");
 
-function someFunc(taskID) {
+function someFunc() {
     editModal.showModal()
 }
+
+function someFunc2() {
+    editModal.close()
+}
+
+
+
+
+
+
 
   
