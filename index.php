@@ -45,7 +45,6 @@ $result = $stmt->fetchAll();
                     echo "<p1 class='taakPos'>" . $row["TaakNaam"] . "</p1>";
                     echo "<p1 class='omschrijvingPos'>" . $row["Omschrijving"] . "</p1>";
                     echo "<div class='divid'>";
-                    echo "<form action = 'update-process.php' method='get'>";
                     echo "<input type='hidden' name='TaakID' value='" . $row["TaakID"] . "'>";
                     echo "</form>";
                     // echo "<p3 style='color: ##A58922;'>" . $row["Prioriteit"] . "</p3>";
@@ -56,6 +55,7 @@ $result = $stmt->fetchAll();
                     echo "</div>";
                     echo "</div>";
                     echo "<br>";
+
                 }
 
 
@@ -92,7 +92,7 @@ $result = $stmt->fetchAll();
             </h1>
             <div class="boxes">
                 <form method="post" action="update-process.php">
-                    <input type="text" name="taak" maxlength="10" class="title" placeholder="Taak">
+                    <input type="text" name="taak" maxlength="15" class="title" placeholder="Taak">
                     <br>
                     <select name="prio" id="prio" class="prioriteit">
                         <option value="" disabled selected>Prioriteit</option>
@@ -102,8 +102,10 @@ $result = $stmt->fetchAll();
                     </select>
                     <input type="date" name="deadline" class="due" placeholder="Due date">
                     <textarea name="omschrijving" maxlength="90" cols="30" placeholder="Omschrijving" rows="5"
-                        class="textarea" style="resize: none;"></textarea>
+                        class="textarea" value="test" style="resize: none;"></textarea>
+                    <input type="hidden" name="TaakID" value="<?php echo $row["TaakID"]; ?>">
                     <input type="submit" class="button" value="Save">
+                    </a>
                 </form>
             </div>
         </dialog>

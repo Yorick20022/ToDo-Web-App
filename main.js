@@ -28,7 +28,7 @@ function searchTable() {
 
 const editModal = document.querySelector("#EditModal");
 
-function someFunc() {
+function someFunc(taskID) {
     editModal.showModal()
 }
 
