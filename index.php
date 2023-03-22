@@ -82,9 +82,7 @@ $result = $stmt->fetchAll();
 
                 <?php endforeach; ?>
             <?php endif; ?>
-
-
-
+            
         </div>
 
         <dialog class="TodoModal" id="TodoModal">
