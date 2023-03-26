@@ -4,14 +4,14 @@
 include_once("database.php");
 
 $EditID = $_GET["TaakID"];
-echo "Edit ID: $EditID";
 $taak = $_POST["taak"];
 $prioriteit = $_POST["prio"];
 $deadline = $_POST["deadline"];
 $omschrijving = $_POST["omschrijving"];
+$categorie = $_GET["categorie"];
 
 if (!empty($taak)) {
-    $stmt = $conn->prepare("UPDATE taken SET TaakNaam=?, Prioriteit=?, Deadline=?, Omschrijving=? WHERE TaakID=?");
+    $stmt = $conn->prepare("UPDATE taken SET TaakNaam=?, Prioriteit=?, Deadline=?, Omschrijving=?, CategorieID=?  WHERE TaakID=?");
 
     if (!$stmt) {
         echo "Error" . $conn->errorInfo();
@@ -21,7 +21,8 @@ if (!empty($taak)) {
     $stmt->bindParam(2, $prioriteit);
     $stmt->bindParam(3, $deadline);
     $stmt->bindParam(4, $omschrijving);
-    $stmt->bindParam(5, $EditID);
+    $stmt->bindParam(5, $categorie);
+    $stmt->bindParam(6, $EditID);
     $stmt->execute();
     
     if ($stmt->rowCount() > 0) {
@@ -35,10 +36,13 @@ if (!empty($taak)) {
         echo "<br>";
         echo $omschrijving;
         echo "<br>";
+        echo $categorie;
+        echo "<br>";
         echo "id: $EditID";
 
+
     } else {
-        echo "Error" . $stmt->errorInfo();
+        echo "Error";
     }
 
     $stmt->closeCursor();

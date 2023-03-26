@@ -6,15 +6,18 @@ $taak = $_POST["taak"];
 $deadline = $_POST["deadline"];
 $prioriteit = $_POST["prio"];
 $omschrijving = $_POST["omschrijving"];
-$id = $_POST["TaakID"];
+$categorie = $_POST["categorie"];
 
-if (!empty($taak)) {
-    $stmt = $conn->prepare("INSERT INTO taken (TaakID, TaakNaam, Deadline, Prioriteit, Omschrijving) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bindParam(1, $id);
-    $stmt->bindParam(2, $taak);
-    $stmt->bindParam(3, $deadline);
-    $stmt->bindParam(4, $prioriteit);
-    $stmt->bindParam(5, $omschrijving);
+if (!empty($categorie)) {
+    $stmt = $conn->prepare("INSERT INTO taken (TaakNaam, Deadline, Prioriteit, Omschrijving, CategorieID)
+    VALUES (?, ?, ?, ?, 
+            (SELECT CategorieID FROM categorie WHERE CategorieNaam = ?));");
+
+    $stmt->bindParam(1, $taak);
+    $stmt->bindParam(2, $deadline);
+    $stmt->bindParam(3, $prioriteit);
+    $stmt->bindParam(4, $omschrijving);
+    $stmt->bindParam(5, $categorie);
 
     $stmt->execute();
 
@@ -28,6 +31,7 @@ if (!empty($taak)) {
 } else {
     echo "Error";
 }
+
 
 header("Location: index.php");
 exit;

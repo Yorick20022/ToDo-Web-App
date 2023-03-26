@@ -1,6 +1,7 @@
 body {
     background-color: #1E1E1E;
     position: relative;
+    user-select: none;
 }
 
 .main {
@@ -9,11 +10,10 @@ body {
     font-size: 22px;
     background-color: aliceblue;
     width: 700px;
-    height: 800px;
+    height: 830px;
     margin: auto;
     border: 7px solid #A58922;
     border-radius: 20px;
-    user-select: none;
 }
 
 .orangebox {
@@ -53,6 +53,12 @@ body {
     font-size: 20px;
     text-align: center;
     border: solid black 2px;
+}
+
+.fa-arrow-down-a-z {
+    margin-top: 10px;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 .fa-plus {
@@ -147,6 +153,17 @@ body {
     font-family: 'Inter';
 }
 
+.sortButton {
+    background-color: #A58922;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-family: 'Inter';
+}
+
 .tasks {
     color: aliceblue;
     font-family: 'Inter';
@@ -203,11 +220,19 @@ body {
 
 .omschrijvingPos {
     margin-top: 10px;
-    margin-left: 14px;
+    margin-left: 10.8px;
     font-family: 'Inter';
     font-size: 20px;
     display: inline-block;
     max-width: 96.5%;
+}
+
+.categoriePos {
+    position: relative;
+    float: right;
+    top: 121px;
+    font-size: 15px;
+    left: 48px;
 }
 
 .tasksMain {
