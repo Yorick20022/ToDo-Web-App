@@ -18,8 +18,6 @@ $stmt2 = $conn->prepare($sql2);
 $stmt2->execute();
 $result2 = $stmt2->fetchAll()
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +41,7 @@ $result2 = $stmt2->fetchAll()
         <h1>TODO</h1>
         <?php
         if ($result2 && isset($result2[0]['count'])) {
-            echo "<p>Afgerond: " . $result2[0]['count'] . "</p>";
+            echo "<p onclick='testFunc()' class='afgerondDirect'>Afgerond: " . $result2[0]['count'] . "</p>";
         } else {
             echo "<p>Afgerond: 0</p>";
         }

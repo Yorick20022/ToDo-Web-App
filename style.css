@@ -16,6 +16,10 @@ body {
     border-radius: 20px;
 }
 
+.afgerondDirect {
+    cursor: pointer;
+}
+
 .orangebox {
     color: aliceblue;
     font-family: 'Inter';
@@ -257,5 +261,25 @@ body {
     margin-top: 25px;
     margin-bottom: 10px;
     right: 485px;
-    /* or right: 20px; */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.no-tasks {
+    font-style: italic;
+    color: #999;
 }

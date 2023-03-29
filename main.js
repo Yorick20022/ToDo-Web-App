@@ -38,7 +38,9 @@ function submitForm() {
     form.submit();
 }
 
-
+function testFunc() {
+    window.location.href = "afgerond.php";
+}
 
 
 

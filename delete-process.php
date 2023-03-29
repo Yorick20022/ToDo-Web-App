@@ -13,8 +13,9 @@ $stmt->execute();
 $task = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Create a prepared statement to insert the task into the deleted tasks table
-$stmt = $conn->prepare("INSERT INTO afgerond (TaakNaam) VALUES (:taskname)");
+$stmt = $conn->prepare("INSERT INTO afgerond (TaakNaam, TaakOmschrijving) VALUES (:taskname, :taskdescription)");
 $stmt->bindParam(':taskname', $task['TaakNaam']);
+$stmt->bindParam(':taskdescription', $task['Omschrijving']);
 $stmt->execute();
 
 // Create a prepared statement to delete the task from the original table

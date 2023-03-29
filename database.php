@@ -16,3 +16,5 @@ try {
     echo "Connection failed: " . $e->getMessage();
     die();
 }
+
+?>
