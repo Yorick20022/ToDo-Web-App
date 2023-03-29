@@ -33,18 +33,13 @@ function someFunc() {
     editModal.showModal()
 }
 
-function someFunc2() {
-    editModal.close()
-}
-
 function submitForm() {
     let form = document.getElementById("sortForm");
     form.submit();
 }
 
-
-
-
-
+function testFunc() {
+    window.location.href = "afgerond.php";
+}
 
 

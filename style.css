@@ -1,7 +1,7 @@
 body {
     background-color: #1E1E1E;
     position: relative;
-    user-select: none;
+    /* user-select: none; */
 }
 
 .main {
@@ -14,6 +14,8 @@ body {
     margin: auto;
     border: 7px solid #A58922;
     border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
 }
 
 .orangebox {
@@ -239,6 +241,7 @@ body {
     height: 52%;
     overflow: auto;
     scroll-behavior: smooth;
+    margin-top: 10px;
 }
 
 .tasksMain::-webkit-scrollbar {
@@ -253,17 +256,20 @@ body {
 .fa-circle-check {
     position: relative;
     color: #FFF;
-    font-size: 25px;
-    top: 13px;
+    font-size: 24px;
+    margin-top: 25px;
+    margin-bottom: 10px;
     right: 485px;
-    /* or right: 20px; */
 }
 
-.fa-pen-to-square {
-    position: relative;
-    color: #FFF;
-    font-size: 25px;
-    top: -13px;
-    right: 450px;
-    cursor: pointer;
+.afgerondMain {
+    font-family: 'Inter';
+    background-color: #f2f2f2;
+    width: 95%;
+    height: 890px;
+    margin: auto;
+    border: 7px solid #A58922;
+    border-radius: 20px;
+    font-weight: 900;
+    padding: 1rem;
 }

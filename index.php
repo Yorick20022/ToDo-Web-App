@@ -13,7 +13,12 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
 
-?>
+$sql2 = "SELECT COUNT(*) as count FROM afgerond";
+$stmt2 = $conn->prepare($sql2);
+$stmt2->execute();
+$result2 = $stmt2->fetchAll()
+
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,15 +43,19 @@ $result = $stmt->fetchAll();
             <p1 class="tasktext">Nieuwe Taak</p1>
             <i class="fa-sharp fa-solid fa-plus"></i>
         </div>
-        <h1 class="tasksText">Taken:</h1>
-
+        <?php
+        if ($result2 && isset($result2[0]['count'])) {
+            echo "<p onclick='testFunc()' class='afgerondDirect'>Afgerond: " . $result2[0]['count'] . "</p>";
+        } else {
+            echo "<p>Afgerond: 0</p>";
+        }
+        ?>
         <input type="text" id="search" onkeyup="searchTable()" name="taak" class="search" placeholder="Zoeken">
 
         <form action="index.php" method="GET" id="sortForm">
             <input type="hidden" name="sort" value="<?php echo $newSort; ?>">
             <i class="fa-solid fa-arrow-down-a-z sortIcon" onclick="submitForm()"></i>
         </form>
-        <br>
         <div class='tasksMain'>
             <?php if (count($result) > 0): ?>
                 <?php foreach ($result as $row): ?>
@@ -73,39 +82,10 @@ $result = $stmt->fetchAll();
                             <a href="delete-process.php?TaakID=<?= $row['TaakID'] ?>" class="delete-icon" title="Done">
                                 <i class="fa-solid fa-circle-check"></i>
                             </a>
-                            <i class="fa-solid fa-pen-to-square" onclick="someFunc()"></i>
                         </div>
                     </div>
                     <br>
 
-
-
-                    <dialog class="TodoModal" id="EditModal">
-                        <i id="closeEdit" class="fa-solid fa-xmark" onclick="someFunc2()"></i>
-                        <h1 class="newNote">Bewerk taak</h1>
-                        <div class="boxes">
-                            <form method="post" action="update-process.php?TaakID=<?php echo $row['TaakID'] ?>">
-                                <input type="text" name="taak" maxlength="15" class="title" placeholder="Taak" required>
-                                <br>
-                                <select name="categorie" id="categorie" class="prioriteit">
-                                    <option value="" disabled selected>Categorie</option>
-                                    <option value="school">School</option>
-                                    <option value="werk">Werk</option>
-                                    <option value="thuis">Thuis</option>
-                                </select>
-                                <select name="prio" id="prio" class="prioriteit" required>
-                                    <option value="" disabled selected>Prioriteit</option>
-                                    <option value="laag">Laag</option>
-                                    <option value="normaal">Normaal</option>
-                                    <option value="hoog">Hoog</option>
-                                </select>
-                                <input type="date" name="deadline" class="due" placeholder="Due date" required>
-                                <textarea name="omschrijving" maxlength="90" cols="30" placeholder="Omschrijving" rows="2.9"
-                                    class="textarea" style="resize: none;" required></textarea>
-                                <input type="submit" class="button" value="Save">
-                            </form>
-                        </div>
-                    </dialog>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>

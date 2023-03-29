@@ -1,19 +1,27 @@
 <?php
-
 include_once("database.php");
 
-// Hier maken we de delete query klaar met een prepared statement:
-$stmt = $conn->prepare("DELETE FROM taken WHERE TaakID = :taskid");
-
-// Hier wordt de variable defined om "ID" te kunnen "pakken"
+// Get the task ID from the URL parameter
 $id = $_GET["TaakID"];
 
+// Create a prepared statement to select the task to be deleted
+$stmt = $conn->prepare("SELECT * FROM taken WHERE TaakID = :taskid");
 $stmt->bindParam(':taskid', $id);
+$stmt->execute();
 
-// Voer de query uit
+// Get the task data
+$task = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Create a prepared statement to insert the task into the deleted tasks table
+$stmt = $conn->prepare("INSERT INTO afgerond (TaakNaam, TaakOmschrijving) VALUES (:taskname, :taskdescription)");
+$stmt->bindParam(':taskname', $task['TaakNaam']);
+$stmt->bindParam(':taskdescription', $task['Omschrijving']);
+$stmt->execute();
+
+// Create a prepared statement to delete the task from the original table
+$stmt = $conn->prepare("DELETE FROM taken WHERE TaakID = :taskid");
+$stmt->bindParam(':taskid', $id);
 $stmt->execute();
 
 header("Location: index.php");
 exit;
-
-?>
