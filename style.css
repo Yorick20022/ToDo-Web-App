@@ -1,7 +1,7 @@
 body {
     background-color: #1E1E1E;
     position: relative;
-    user-select: none;
+    /* user-select: none; */
 }
 
 .main {
@@ -253,17 +253,9 @@ body {
 .fa-circle-check {
     position: relative;
     color: #FFF;
-    font-size: 25px;
-    top: 13px;
+    font-size: 24px;
+    margin-top: 25px;
+    margin-bottom: 10px;
     right: 485px;
     /* or right: 20px; */
-}
-
-.fa-pen-to-square {
-    position: relative;
-    color: #FFF;
-    font-size: 25px;
-    top: -13px;
-    right: 450px;
-    cursor: pointer;
 }

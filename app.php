@@ -35,5 +35,3 @@ if (!empty($categorie)) {
 
 header("Location: index.php");
 exit;
-
-?>
